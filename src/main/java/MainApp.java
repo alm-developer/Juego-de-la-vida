@@ -2,7 +2,6 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ui.CrearPartida;
-import ui.partida;
 
 public class MainApp extends Application {
 

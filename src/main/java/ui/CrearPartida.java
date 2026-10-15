@@ -1,6 +1,7 @@
 package ui;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.SpotLight;
 import javafx.scene.canvas.Canvas;
@@ -9,6 +10,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 import javax.swing.*;
 
@@ -74,18 +76,19 @@ public class CrearPartida extends HBox {
 
 
         HBox x = new HBox(4);
+        x.setAlignment(Pos.CENTER_LEFT);
         Label filas = new Label("Filas:");
         Spinner<Integer> spinnerFilas = new Spinner<>(1, 100, 0);
         x.getChildren().addAll(filas,spinnerFilas);
         HBox y = new HBox(4);
+        y.setAlignment(Pos.CENTER_LEFT);
         Label columnas = new Label("Columnas:");
         Spinner<Integer> spinnerColumnas = new Spinner<>(1, 100, 0);
         y.getChildren().addAll(columnas,spinnerColumnas);
 
         HBox formaPre = new HBox(5);
-
+        formaPre.setAlignment(Pos.CENTER_LEFT);
         Label txtformas = new Label("Formas:");
-
         ComboBox formasPredefinidas  = new ComboBox();
         formasPredefinidas.setMaxWidth(Double.MAX_VALUE);
         HBox.setHgrow(formasPredefinidas, Priority.ALWAYS);
@@ -93,7 +96,6 @@ public class CrearPartida extends HBox {
         Button fromaAleat = new Button("Forma Aleatoria");
         fromaAleat.setMaxWidth(Double.MAX_VALUE);
         formaPre.getChildren().addAll(txtformas,formasPredefinidas);
-
 
 
         ColumnConstraints col1 = new ColumnConstraints();
@@ -230,9 +232,17 @@ public class CrearPartida extends HBox {
         seleccionColor.setHgap(2);
         seleccionColor.setVgap(2);
 
+        Label reglas = new Label("REGLAS");
+        reglas.setMaxWidth(Double.MAX_VALUE);
+        reglas.setAlignment(Pos.CENTER);
 
-
-        inputsContent.getChildren().addAll(ajustes,estadisticas,themas,seleccionColor,experimenta,btnes);
+        Text textoReglas = new Text(
+                "1. Superpoblación: Una célula viva con más de 3 vecinas muere.\n" +
+                        "2. Soledad: Una célula viva con menos de 2 vecinas muere.\n" +
+                        "3. Supervivencia: Una célula viva con 2 o 3 vecinas permanece viva.\n" +
+                        "4. Reproducción: Una casilla vacía con exactamente 3 vecinas crea una nueva célula."
+        );
+        inputsContent.getChildren().addAll(ajustes,estadisticas,themas,seleccionColor,experimenta,btnes,reglas,textoReglas);
         inputs.getChildren().addAll(inputsContent);
         this.getChildren().addAll(content, inputs);
     }
