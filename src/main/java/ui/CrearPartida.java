@@ -10,7 +10,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 public class CrearPartida extends HBox {
-
     public CrearPartida() {
         this.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         this.getChildren().addAll(crearPanelIzquierdo(), crearPanelDerecho());
@@ -19,12 +18,10 @@ public class CrearPartida extends HBox {
     private VBox crearPanelIzquierdo() {
         VBox content = new VBox(6);
         HBox.setHgrow(content, Priority.ALWAYS);
-        content.setStyle("-fx-background-color: blue");
         content.setPadding(new Insets(10));
 
         HBox contentTi = new HBox();
         contentTi.setAlignment(Pos.CENTER_LEFT);
-        contentTi.setStyle("-fx-background-color: grey");
         contentTi.setMinHeight(30);
         contentTi.setMaxWidth(Double.MAX_VALUE);
         contentTi.setPadding(new Insets(0, 10, 0, 10));
@@ -36,13 +33,11 @@ public class CrearPartida extends HBox {
         contentTi.getChildren().addAll(titulo, region1, generacion);
 
         Pane contenedorCanva = new Pane();
-        contenedorCanva.setStyle("-fx-background-color: purple;");
         VBox.setVgrow(contenedorCanva, Priority.ALWAYS);
 
-        Canvas mapa = new Canvas();
+        Canvas mapa = new Canvas(0,0);
         mapa.getGraphicsContext2D().setFill(Color.PURPLE);
         mapa.getGraphicsContext2D().fillRect(0, 0, mapa.getWidth(), mapa.getHeight());
-
         contenedorCanva.getChildren().add(mapa);
         content.getChildren().addAll(contentTi, contenedorCanva);
 
@@ -51,15 +46,14 @@ public class CrearPartida extends HBox {
 
     private VBox crearPanelDerecho() {
         VBox inputs = new VBox();
-        inputs.setStyle("-fx-background-color: red");
         inputs.setPrefWidth(500);
         inputs.setMinWidth(500);
         inputs.setPadding(new Insets(10));
 
         VBox inputsContent = new VBox();
+        inputsContent.getStyleClass().add("contenedores-contenido");
         inputsContent.setPadding(new Insets(10));
         VBox.setVgrow(inputsContent, Priority.ALWAYS);
-        inputsContent.setStyle("-fx-background-color: pink;");
         inputsContent.setAlignment(Pos.TOP_LEFT);
 
         Label ajustes = crearLabelSeccion("AJUSTES DE GENERACION");
@@ -99,6 +93,18 @@ public class CrearPartida extends HBox {
         Label muertos = new Label("0");
         Label nacimientos = new Label("0");
         Label muertes = new Label("0");
+
+
+        Label tamañoPincel = new Label("Tamaño Pincel: ");
+
+        HBox contPin = new HBox(5);
+        contPin.setAlignment(Pos.CENTER_LEFT);
+        Spinner<Integer> tamPinc = new Spinner<>(1, 20, 1);
+        tamPinc.setEditable(true);
+        tamPinc.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(tamPinc, Priority.ALWAYS);
+        contPin.getChildren().addAll(tamañoPincel,tamPinc);
+
 
         HBox x = new HBox(4);
         x.setAlignment(Pos.CENTER_LEFT);
@@ -141,6 +147,7 @@ public class CrearPartida extends HBox {
         sliderGeneraciones.setMajorTickUnit(20);
         sliderGeneraciones.setBlockIncrement(1);
 
+
         estadisticas.add(new Label("Vivas:"), 0, 0);
         estadisticas.add(vivos, 1, 0);
         estadisticas.add(new Label("Muertas:"), 0, 1);
@@ -157,6 +164,9 @@ public class CrearPartida extends HBox {
         estadisticas.add(y, 1, 6);
         estadisticas.add(formaPre, 0, 7);
         estadisticas.add(fromaAleat, 1, 7);
+        estadisticas.add(contPin, 0, 8);
+        GridPane.setColumnSpan(contPin,2);
+
 
         return estadisticas;
     }
